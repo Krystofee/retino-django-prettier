@@ -1,6 +1,6 @@
 - id: retino-prettier
   name: retino-prettier
-  entry: prettier
+  entry: retino-prettier
   language: node
   files: \.html$
   language_version: 16.13.0
