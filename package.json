@@ -1,0 +1,18 @@
+{
+  "name": "hook-retino-prettier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prettier": "^3.1.1",
+    "prettier-eslint": "^16.2.0",
+    "prettier-eslint-cli": "^8.0.1",
+    "prettier-plugin-django-alpine": "^1.3.0",
+    "prettier-plugin-tailwindcss": "^0.5.10"
+  }
+}
