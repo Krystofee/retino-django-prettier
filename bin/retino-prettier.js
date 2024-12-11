@@ -11,7 +11,7 @@ console.log('Running retino.prettier.js ...');
 
   // Ensure NODE_PATH includes the global node_modules for resolving plugins
   process.env.NODE_PATH = `${process.env.NODE_PATH || ''}:/Users/krystofrehacek/.cache/pre-commit/repo_w6zxyfp/node_env-16.13.0/lib/node_modules/hook-retino-prettier/node_modules`;
-  require('module').Module._initPaths();
+  const module = await import('module');
 
   // Utility function to log environment details
   const logEnvironmentDetails = () => {
