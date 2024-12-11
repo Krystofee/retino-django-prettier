@@ -18,6 +18,12 @@ console.log('Running retino.prettier.js ...');
   const file = fs.readFileSync(__filename, 'utf8');
   console.log('... file contents:', file);
 
+  // Show node location
+  console.log('... node location:', process.execPath);
+
+  // Show available packages
+  console.log('... available packages:', fs.readdirSync('./node_modules').join(', '));
+
   console.log('... loading Prettier');
 
   const prettier = await import('prettier'); // Import Prettier dynamically
