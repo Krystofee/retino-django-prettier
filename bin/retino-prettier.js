@@ -7,6 +7,10 @@ console.log('Running retino.prettier.js ...');
   const { execSync } = await import('child_process');
   const cwd = execSync('pwd').toString().trim();
 
+  // echo script location
+  const __filename = new URL(import.meta.url).pathname;
+  console.log('... script location:', __filename);
+
   console.log('... current directory:', cwd);
 
   console.log('... loading Prettier');
