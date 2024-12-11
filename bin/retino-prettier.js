@@ -35,16 +35,16 @@ console.log('Running retino.prettier.js ...');
 
     console.log(`... found ${filesToFormat.length} files to format`);
 
-    filesToFormat.forEach((file) => {
+    for (const file of filesToFormat) {
       console.log(`... formatting ${file}`);
       const filePath = path.resolve(file);
       const content = fs.readFileSync(filePath, 'utf-8');
-      const formatted = prettier.format(content, { ...prettierConfig, filepath: filePath });
+      const formatted = await prettier.format(content, { ...prettierConfig, filepath: filePath });
 
       // Write the formatted content back to the file
       fs.writeFileSync(filePath, formatted, 'utf-8');
       console.log(`... formatted ${file}`);
-    });
+    }
 
     console.log('... Prettier finished');
   };
