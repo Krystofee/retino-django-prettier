@@ -15,7 +15,7 @@ console.log('Running retino.prettier.js ...');
 
   // echo file contents noop.js
   const fs = await import('fs');
-  const file = fs.readFileSync(__filename, 'utf8');
+  const file = fs.readFileSync("noop.js", 'utf8');
   console.log('... file contents:', file);
 
   // Show node location
@@ -37,9 +37,6 @@ console.log('Running retino.prettier.js ...');
 
   const prettier = await import('prettier'); // Import Prettier dynamically
   const prettierPluginDjangoAlpine = await import('prettier-plugin-django-alpine'); // Import Prettier dynamically
-
-  // Remove noop.js file
-  fs.unlinkSync("noop.js");
 
   console.log('... loaded Prettier');
 
