@@ -3,50 +3,52 @@
 console.log('Running retino.prettier.js ...');
 
 (async () => {
-  // echo current directory
   const { execSync } = await import('child_process');
-  const cwd = execSync('pwd').toString().trim();
-
-  // echo script location
-  const __filename = new URL(import.meta.url).pathname;
-  console.log('... script location:', __filename);
-
-  console.log('... current directory:', cwd);
-
-  // Show node location
-  console.log('... node location:', process.execPath);
-
-  // Echo NODE_PATH
-  console.log('... NODE_PATH:', process.env.NODE_PATH);
-
-  // Add "/hook-retino-prettier/node_modules" to NODE_PATH
-  process.env.NODE_PATH = process.env.NODE_PATH + "/hook-retino-prettier/node_modules";
-
-  // console.log(require.resolve('prettier'));
-  // console.log(require.resolve('prettier-plugin-django-alpine'));
-
-  // Show available packages
-  // console.log('... available packages:', fs.readdirSync('./node_modules').join(', '));
-
-  console.log('... loading Prettier');
-
   const prettier = await import('prettier'); // Import Prettier dynamically
-  const prettierPluginDjangoAlpine = await import('prettier-plugin-django-alpine'); // Import Prettier dynamically
+  const fs = await import('fs');
+  const path = await import('path');
+  const glob = (await import('glob')).glob;
 
-  console.log('... loaded Prettier');
+  // Utility function to log environment details
+  const logEnvironmentDetails = () => {
+    console.log('... current directory:', execSync('pwd').toString().trim());
+    console.log('... script location:', new URL(import.meta.url).pathname);
+    console.log('... node location:', process.execPath);
+    console.log('... NODE_PATH:', process.env.NODE_PATH || 'Not set');
+  };
 
-  const args = [
-    '--config=./src/.prettierrc',
-    '--ignore-path=./src/.prettierignore',
-    '**/*.html',
-  ];
+  logEnvironmentDetails();
 
-  const { spawnSync } = await import('child_process');
-  const result = spawnSync('npx', ['prettier', ...args], { stdio: 'inherit' });
+  // Function to run Prettier
+  const runPrettier = async () => {
+    console.log('... loading Prettier configuration');
 
-  console.log('... Prettier finished');
+    const prettierConfig = JSON.parse(fs.readFileSync('./src/.prettierrc', 'utf-8'));
 
-  process.exit(result.status);
+    // Match all HTML files
+    const filesToFormat = glob.sync('**/*.html', {
+      ignore: fs
+        .readFileSync('./src/.prettierignore', 'utf-8')
+        .split('\n')
+        .filter(Boolean),
+    });
 
-  console.log('... exiting');
+    console.log(`... found ${filesToFormat.length} files to format`);
+
+    filesToFormat.forEach((file) => {
+      console.log(`... formatting ${file}`);
+      const filePath = path.resolve(file);
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const formatted = prettier.format(content, { ...prettierConfig, filepath: filePath });
+
+      // Write the formatted content back to the file
+      fs.writeFileSync(filePath, formatted, 'utf-8');
+      console.log(`... formatted ${file}`);
+    });
+
+    console.log('... Prettier finished');
+  };
+
+  // Run Prettier
+  await runPrettier();
 })();
