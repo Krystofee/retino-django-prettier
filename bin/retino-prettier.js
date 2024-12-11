@@ -21,6 +21,12 @@ console.log('Running retino.prettier.js ...');
   // Show node location
   console.log('... node location:', process.execPath);
 
+  // Echo NODE_PATH
+  console.log('... NODE_PATH:', process.env.NODE_PATH);
+
+  console.log(require.resolve('prettier'));
+  console.log(require.resolve('prettier-plugin-django-alpine'));
+
   // Show available packages
   console.log('... available packages:', fs.readdirSync('./node_modules').join(', '));
 
