@@ -36,6 +36,7 @@ console.log('Running retino.prettier.js ...');
   console.log('... loading Prettier');
 
   const prettier = await import('prettier'); // Import Prettier dynamically
+  const prettier = await import('prettier-plugin-django-alpine'); // Import Prettier dynamically
 
   console.log('... loaded Prettier');
 
