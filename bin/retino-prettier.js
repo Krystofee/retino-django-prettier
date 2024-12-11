@@ -3,6 +3,12 @@
 console.log('Running retino.prettier.js ...');
 
 (async () => {
+  // echo current directory
+  const { execSync } = await import('child_process');
+  const cwd = execSync('pwd').toString().trim();
+
+  console.log('... current directory:', cwd);
+
   console.log('... loading Prettier');
 
   const prettier = await import('prettier'); // Import Prettier dynamically
