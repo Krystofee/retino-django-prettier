@@ -13,11 +13,6 @@ console.log('Running retino.prettier.js ...');
 
   console.log('... current directory:', cwd);
 
-  // echo file contents noop.js
-  const fs = await import('fs');
-  const file = fs.readFileSync("noop.js", 'utf8');
-  console.log('... file contents:', file);
-
   // Show node location
   console.log('... node location:', process.execPath);
 
