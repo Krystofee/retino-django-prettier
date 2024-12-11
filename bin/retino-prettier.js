@@ -13,6 +13,11 @@ console.log('Running retino.prettier.js ...');
 
   console.log('... current directory:', cwd);
 
+  // echo file contents noop.js
+  const fs = await import('fs');
+  const file = fs.readFileSync(__filename, 'utf8');
+  console.log('... file contents:', file);
+
   console.log('... loading Prettier');
 
   const prettier = await import('prettier'); // Import Prettier dynamically
